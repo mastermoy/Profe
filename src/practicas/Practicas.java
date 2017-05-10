@@ -15,7 +15,7 @@ import java.util.Random;
 public class Practicas {
     public static Scanner read = new Scanner(System.in);  
     public static Random rn = new Random();
-
+// propiedad de mr donvergas todos los derechos reservados 
 
     public static void main(String[] args) {
        int opc;
