@@ -1,7 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Negocios;
 import Conexion.Conexion;
-import Encapsulamiento.eUsers;
-import Datos.UserData;
+import Encapsulamiento.eAccesories;
+import Datos.AccesoriesData;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +14,14 @@ import java.util.List;
  *
  * @author mastermoy
  */
-public class User  extends Conexion{
+public class Accesories extends Conexion{
     
-    public static String ingresarDatos(eUsers user) throws SQLException, Exception{
+     public static String insertAccesories(eAccesories accesories) throws SQLException, Exception{
         String resultado = null;
-        Connection conexion;
-        conexion = Conexion();
+       Connection conexion = Conexion();
         try {
             conexion.setAutoCommit(false);
-            resultado = UserData.ingresarDatos(conexion, user);
+            resultado = AccesoriesData.insertAccesories(conexion, accesories);
             conexion.commit();
         } catch (SQLException e) {
             conexion.rollback();
@@ -27,27 +31,26 @@ public class User  extends Conexion{
     return resultado;    
     }
     
-    public static List<eUsers> getUsers() throws Exception{
-       List<eUsers> lUsuarios = new ArrayList<>();
+    public static List<eAccesories> getAccesories() throws Exception{
+       List<eAccesories> lAccesories = new ArrayList<>();
        Connection conexion = Conexion();
                try {
             conexion.setAutoCommit(false);
-            //resultado = UserData.ingresarDatos(conexion, user);
-            lUsuarios = UserData.getUsers(conexion);
+            lAccesories = AccesoriesData.getAccesories(conexion);
             conexion.commit();
         } catch (SQLException e) {
             conexion.rollback();
             throw new Exception("Error en la capa de negocios"+e.getMessage());
         }  
-    return lUsuarios;
+    return lAccesories;
     }
     
-   public static boolean deleteUser(String userName) throws Exception {
+   public static boolean deleteAccesories(String serie) throws Exception {
        boolean resultado = false;       
        Connection conexion = Conexion();
        try {
            conexion.setAutoCommit(false);           
-           resultado = UserData.deleteUser(userName, conexion);
+           resultado = AccesoriesData.deleteAccesories(serie, conexion);
            conexion.commit();
        } catch (Exception e) {
           conexion.rollback();
@@ -57,12 +60,12 @@ public class User  extends Conexion{
        return resultado;
    }
    
-   public static String editarDatos(eUsers user) throws SQLException, Exception{
+   public static String edithAccesories(eAccesories accesories) throws SQLException, Exception{
         String resultado = null;
         Connection conexion = Conexion();
         try {
             conexion.setAutoCommit(false);
-            resultado = UserData.editarDatos(conexion, user);
+            resultado = AccesoriesData.editAccesories(conexion, accesories);
             conexion.commit();
         } catch (SQLException e) {
             conexion.rollback();
@@ -72,19 +75,4 @@ public class User  extends Conexion{
     return resultado;    
     }
     
-      public static String findLogin(eUsers user) throws SQLException, Exception{
-        String resultado = null;
-        Connection conexion = Conexion();
-        try {
-            conexion.setAutoCommit(false);
-            resultado = UserData.findLogin(conexion, user);
-            conexion.commit();
-        } catch (SQLException e) {
-            conexion.rollback();
-            throw new Exception("Error en la capa de negocios"+e.getMessage());
-        }         
-    
-    return resultado;    
-    }
-   
 }
